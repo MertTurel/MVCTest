@@ -1,0 +1,35 @@
+﻿
+@{
+    ViewBag.Title = "Posts";
+}
+
+@model IEnumerable<DatabaseTest.Web.Models.Domain.Post>
+
+<h2>Posts</h2>
+
+<a href="~/Post/CreatePost"><i class="fa fa-plus-circle fa-fw"></i></a>
+ 
+<div class="container">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="card-body col-md-6">
+                <h2 class="card-title">
+                    @item.Title
+                </h2>
+                <p class="card-text">
+                    @item.Content
+                </p>
+                <a href="#"><i class="fa fa-heart fa-fw"></i></a>
+                <a href="~/Post/EditPost/@item.Id"><i class="fa fa-pencil-alt fa-fw"></i></a> 
+            </div>
+            <div class="card-footer col-md-6">
+                <p class="text-muted">Created At: @item.CreatedAt</p>
+                @if (!item.CreatedAt.Equals(item.LastModifiedAt))
+                {
+                    <p class="text-muted">Edited At: @item.LastModifiedAt</p>
+                }
+            </div>
+        }
+    </div>
+</div>

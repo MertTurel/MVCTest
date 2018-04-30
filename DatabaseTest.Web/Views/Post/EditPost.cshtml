@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "EditPost";
+}
+
+@model DatabaseTest.Web.Models.Domain.Post
+
+<div class="container-fluid">
+    <h2 class="display-4">Edit Post</h2>
+    <hr />
+
+    @using (Html.BeginForm("EditPost", "Post", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <form>
+            <div class="form-group">
+                <label for="txtAreaTitle">Title</label>
+                @Html.TextAreaFor(p => p.Title, new{ @class = "form-control", style = "min-width: 100%", rows = 3, id = "txtAreaTitle", placeholder = "Title of the post..."})
+            </div>
+            <div class="form-group">
+                <label for="txtAreaContent">Content</label>
+                @Html.TextAreaFor(p => p.Content, new{ @class = "form-control", style = "min-width: 100%", rows = 30, id = "txtAreaContent", placeholder = "Content of the post..."})
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    }
+</div>

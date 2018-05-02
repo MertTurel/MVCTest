@@ -19,6 +19,7 @@ namespace DatabaseTest.Web.Controllers
         public ActionResult Index()
         {
             var allPosts = _postRepository.FindAll();
+            
             return View(allPosts);
         }
 
@@ -36,26 +37,30 @@ namespace DatabaseTest.Web.Controllers
                 var newPost = Mapper.Map<Post>(postViewModel);
                 _postRepository.Insert(newPost);
             }
-            return View();
+            return RedirectToAction("Index");
         }
 
         public ActionResult EditPost(int id)
         {
             var postToEdit = _postRepository.FindByKey(id);
-            return View(postToEdit);
+            var postToEditPostViewModel = Mapper.Map<PostViewModel>(postToEdit);
+
+            return View(postToEditPostViewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditPost(Post post)
+        public ActionResult EditPost(PostViewModel postViewModel)
         {
             if (ValidateRequest)
             {
-                _postRepository.Update(post);
+                var postToUpdate = _postRepository.FindByKey(postViewModel.Id);
+                postToUpdate = Mapper.Map(postViewModel, postToUpdate);
+                _postRepository.Update(postToUpdate);
             }
 
-            return View();
-        }
+            return RedirectToAction("Index");
+        } 
 
         public ActionResult MyPosts()
         {

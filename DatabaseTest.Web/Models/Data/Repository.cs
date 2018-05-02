@@ -55,8 +55,8 @@ namespace DatabaseTest.Web.Models.Data
 
         public void Insert(TEntity entity)
         {
-            entity.CreatedAt = DateTime.UtcNow;
-            entity.LastModifiedAt = DateTime.UtcNow;
+            entity.CreatedAt = DateTime.Now;
+            entity.LastModifiedAt = DateTime.Now;
             entity.IsDeleted = false;
 
             _dbSet.Add(entity);
@@ -65,7 +65,7 @@ namespace DatabaseTest.Web.Models.Data
 
         public void Update(TEntity entity)
         {
-            entity.LastModifiedAt = DateTime.UtcNow;
+            entity.LastModifiedAt = DateTime.Now;
 
             _dbSet.Attach(entity);
             var entry = _dbContext.Entry(entity);

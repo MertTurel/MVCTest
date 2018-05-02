@@ -10,7 +10,9 @@ namespace DatabaseTest.Web.Models.Mapping
         {
             CreateMap<Post, PostViewModel>();
             CreateMap<PostViewModel, Post>()
-                .ForMember(p => p.Id, opt => opt.Ignore());
+                .ForMember(p => p.CreatedAt, opt => opt.Ignore())
+                .ForMember(p => p.LastModifiedAt, opt => opt.Ignore())
+                .ForMember(p => p.IsDeleted, opt => opt.Ignore());
             
             CreateMap<Comment, CommentViewModel>();
             CreateMap<CommentViewModel, Comment>()

@@ -3,7 +3,7 @@
     ViewBag.Title = "Posts";
 }
 
-@model IEnumerable<DatabaseTest.Web.Models.Domain.Post>
+@model IEnumerable<DatabaseTest.Web.Models.ViewModels.PostViewModel>
 
 <div class="d-flex">
     <div class="mr-auto p-2">
@@ -37,8 +37,11 @@
                         <p class="card-text">
                             @item.Content
                         </p>
-                        <a href="#"><i class="fa fa-heart fa-fw"></i></a>
-                        @Html.ActionLink("Edit", "EditPost", new {id = item.Id})
+                        <a href="#" style="color: deeppink"><i class="fa fa-heart fa-fw"></i></a>
+                        <a href="@Url.Action("EditPost", new {id = item.Id})" style="color: saddlebrown">
+                            <i class="fa fa-pencil-alt fa-fw"></i>
+                        </a>
+                        <a href="#" style="color: red"><i class="fa fa-trash-alt fa-fw"></i></a>
                     </div>
                     <div class="card-footer">
                         <p class="text-muted">Created At: @item.CreatedAt</p>

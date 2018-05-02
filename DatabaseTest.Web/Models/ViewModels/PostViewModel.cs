@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace DatabaseTest.Web.Models.ViewModels
@@ -16,5 +17,8 @@ namespace DatabaseTest.Web.Models.ViewModels
         public string Content { get; set; }
 
         public IEnumerable<CommentViewModel> Comments { get; set; }
+
+        public DateTime CreatedAt { get; set; }
+        public DateTime LastModifiedAt { get; set; }
     }
 }

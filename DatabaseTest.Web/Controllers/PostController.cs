@@ -2,6 +2,7 @@
 using DatabaseTest.Web.Models.Data;
 using DatabaseTest.Web.Models.Domain;
 using DatabaseTest.Web.Models.ViewModels;
+using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace DatabaseTest.Web.Controllers
@@ -19,10 +20,17 @@ namespace DatabaseTest.Web.Controllers
         public ActionResult Index()
         {
             var allPosts = _postRepository.FindAll();
-            
-            return View(allPosts);
-        }
+            var allPostsViewModel = new HashSet<PostViewModel>();
 
+            foreach (var item in allPosts)
+            {
+                var mappedItem = Mapper.Map<PostViewModel>(item);
+                allPostsViewModel.Add(mappedItem);
+            }
+
+            return View(allPostsViewModel);
+        }
+        
         public ActionResult CreatePost()
         {
             return View();
@@ -60,11 +68,16 @@ namespace DatabaseTest.Web.Controllers
             }
 
             return RedirectToAction("Index");
-        } 
+        }
 
-        public ActionResult MyPosts()
+        [HttpDelete]
+        public JsonResult DeletePost(int id)
         {
-            return View();
+            var postToDelete = _postRepository.FindByKey(id);
+            postToDelete.IsDeleted = true;
+            _postRepository.Update(postToDelete);
+
+            return Json(Response.StatusCode, JsonRequestBehavior.AllowGet);
         }
     }
 }

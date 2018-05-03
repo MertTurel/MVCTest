@@ -41,7 +41,7 @@
                         <a href="@Url.Action("EditPost", new {id = item.Id})" style="color: saddlebrown">
                             <i class="fa fa-pencil-alt fa-fw"></i>
                         </a>
-                        <a href="#" style="color: red"><i class="fa fa-trash-alt fa-fw"></i></a>
+                        <a href="#" onclick="deleteRequest(@item.Id)" style="color: red"><i class="fa fa-trash-alt fa-fw"></i></a>
                     </div>
                     <div class="card-footer">
                         <p class="text-muted">Created At: @item.CreatedAt</p>
@@ -55,3 +55,15 @@
         }
     </div>
 </div>
+
+<script type="text/javascript" language="javascript">
+
+    function deleteRequest(id) {
+        $.ajax({
+            url: 'DeletePost/' + id,
+            type: 'DELETE',
+            contentType: 'application/json; charset=utf-8',
+            success: function (response) { redirect('Post/Index'); }
+        });
+    }
+</script>

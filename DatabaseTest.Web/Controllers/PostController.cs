@@ -16,7 +16,6 @@ namespace DatabaseTest.Web.Controllers
             _postRepository = postRepository;
         }
 
-        // GET: Post
         public ActionResult Index()
         {
             var allPosts = _postRepository.FindAll();
